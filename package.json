@@ -1,0 +1,25 @@
+{
+  "name": "mve-dom",
+  "version": "1.0.1",
+  "description": "a simple dom birdge for mve",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitee.com/wy2010344/npm_mve-DOM.git"
+  },
+  "keywords": [
+    "mve",
+    "dom",
+    "mvvm",
+    "vue",
+    "TypeScript"
+  ],
+  "author": "wy2010344",
+  "license": "MIT",
+  "dependencies": {
+    "mve-core": "^1.0.0"
+  }
+}

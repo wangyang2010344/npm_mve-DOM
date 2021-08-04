@@ -1,6 +1,6 @@
-import { EOChildren } from "@wangyang2010344/mve/childrenBuilder";
-import { mve } from "@wangyang2010344/mve/util";
-import { VirtualChildParam } from "@wangyang2010344/mve/virtualTreeChildren";
+import { EOChildren } from "mve-core/childrenBuilder";
+import { mve } from "mve-core/util";
+import { VirtualChildParam } from "mve-core/virtualTreeChildren";
 export declare class DOMVirtualParam implements VirtualChildParam<Node> {
     private pel;
     constructor(pel: Node);
@@ -50,6 +50,6 @@ export interface DOMNode {
     text?: ItemValue;
 }
 export declare type DOMNodeAll = DOMNode | string;
-export declare const dom: import("@wangyang2010344/mve/index").ElementResult<DOMNodeAll, Node>;
-export declare const svg: import("@wangyang2010344/mve/index").ElementResult<DOMNode, Node>;
+export declare const dom: import("mve-core/index").ElementResult<DOMNodeAll, Node>;
+export declare const svg: import("mve-core/index").ElementResult<DOMNode, Node>;
 export {};

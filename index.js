@@ -4,9 +4,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 exports.__esModule = true;
 exports.svg = exports.dom = exports.reWriteDestroy = exports.reWriteInit = exports.reWriteAction = exports.DOMVirtualParam = void 0;
-var childrenBuilder_1 = require("@wangyang2010344/mve/childrenBuilder");
-var index_1 = require("@wangyang2010344/mve/index");
-var util_1 = require("@wangyang2010344/mve/util");
+var childrenBuilder_1 = require("mve-core/childrenBuilder");
+var index_1 = require("mve-core/index");
+var util_1 = require("mve-core/util");
 var DOM_1 = __importDefault(require("./DOM"));
 var DOMVirtualParam = /** @class */ (function () {
     function DOMVirtualParam(pel) {

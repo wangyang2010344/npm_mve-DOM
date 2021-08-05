@@ -3,7 +3,7 @@ import { EOChildren,childrenBuilder } from "mve-core/childrenBuilder"
 import { buildElement, buildElementOrginal, parseUtil } from "mve-core/index"
 import { BuildResult, BuildResultList, mve, onceLife,isArray } from "mve-core/util"
 import { VirtualChildParam } from "mve-core/virtualTreeChildren"
-import DOM from "./DOM"
+import * as DOM from "./DOM"
 export class DOMVirtualParam implements VirtualChildParam<Node>{
 	constructor(
 		private pel:Node

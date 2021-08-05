@@ -1,25 +1,41 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
 };
 exports.__esModule = true;
 exports.svg = exports.dom = exports.reWriteDestroy = exports.reWriteInit = exports.reWriteAction = exports.DOMVirtualParam = void 0;
 var childrenBuilder_1 = require("mve-core/childrenBuilder");
 var index_1 = require("mve-core/index");
 var util_1 = require("mve-core/util");
-var DOM_1 = __importDefault(require("./DOM"));
+var DOM = __importStar(require("./DOM"));
 var DOMVirtualParam = /** @class */ (function () {
     function DOMVirtualParam(pel) {
         this.pel = pel;
     }
     DOMVirtualParam.prototype.append = function (el, isMove) {
-        DOM_1["default"].appendChild(this.pel, el, isMove);
+        DOM.appendChild(this.pel, el, isMove);
     };
     DOMVirtualParam.prototype.remove = function (el) {
-        DOM_1["default"].removeChild(this.pel, el);
+        DOM.removeChild(this.pel, el);
     };
     DOMVirtualParam.prototype.insertBefore = function (el, oldEl, isMove) {
-        DOM_1["default"].insertChildBefore(this.pel, el, oldEl, isMove);
+        DOM.insertChildBefore(this.pel, el, oldEl, isMove);
     };
     return DOMVirtualParam;
 }());
@@ -71,37 +87,37 @@ function buildParam(me, el, child) {
             if (util_1.isArray(v)) {
                 for (var _i = 0, v_1 = v; _i < v_1.length; _i++) {
                     var vv = v_1[_i];
-                    DOM_1["default"].action(el, k, vv);
+                    DOM.action(el, k, vv);
                 }
             }
             else {
-                DOM_1["default"].action(el, k, v);
+                DOM.action(el, k, v);
             }
         }
     }
     if (child.style) {
         index_1.parseUtil.bindKV(me, child.style, function (k, v) {
-            DOM_1["default"].style(el, k, v);
+            DOM.style(el, k, v);
         });
     }
     if (child.attr) {
         index_1.parseUtil.bindKV(me, child.attr, function (k, v) {
-            DOM_1["default"].attr(el, k, v);
+            DOM.attr(el, k, v);
         });
     }
     if (child.prop) {
         index_1.parseUtil.bindKV(me, child.prop, function (k, v) {
-            DOM_1["default"].prop(el, k, v);
+            DOM.prop(el, k, v);
         });
     }
     if (child.cls) {
         index_1.parseUtil.bind(me, child.cls, function (v) {
-            DOM_1["default"].attr(el, "class", v);
+            DOM.attr(el, "class", v);
         });
     }
     if (child.text) {
         index_1.parseUtil.bind(me, child.text, function (v) {
-            DOM_1["default"].content(el, v);
+            DOM.content(el, v);
         });
     }
     var ci = {};
@@ -146,13 +162,13 @@ function buildParamAfter(me, el, child) {
      */
     if (child.value) {
         index_1.parseUtil.bind(me, child.value, function (v) {
-            DOM_1["default"].value(el, v);
+            DOM.value(el, v);
         });
     }
 }
 exports.dom = index_1.buildElementOrginal(function (me, n, life) {
     if (typeof (n) == 'string') {
-        var txt = DOM_1["default"].createTextNode(n);
+        var txt = DOM.createTextNode(n);
         if (life) {
             return { element: txt, init: life.init, destroy: life.destroy };
         }
@@ -161,7 +177,7 @@ exports.dom = index_1.buildElementOrginal(function (me, n, life) {
         }
     }
     else {
-        var element = DOM_1["default"].createElement(n.type);
+        var element = DOM.createElement(n.type);
         var out = util_1.BuildResultList.init();
         var ci = buildParam(me, element, n);
         if ('children' in n) {
@@ -179,7 +195,7 @@ exports.dom = index_1.buildElementOrginal(function (me, n, life) {
     }
 });
 exports.svg = index_1.buildElement(function (me, n, out) {
-    var element = DOM_1["default"].createElementNS(n.type, "http://www.w3.org/2000/svg");
+    var element = DOM.createElementNS(n.type, "http://www.w3.org/2000/svg");
     var ci = buildParam(me, element, n);
     if ('children' in n) {
         var children = n.children;

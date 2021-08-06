@@ -4,6 +4,11 @@ import { buildElement, buildElementOrginal, parseUtil } from "mve-core/index"
 import { BuildResult, BuildResultList, mve, onceLife,isArray } from "mve-core/util"
 import { VirtualChildParam } from "mve-core/virtualTreeChildren"
 import * as DOM from "./DOM"
+/**
+ * 在DOM里，移动其实是少用的
+ * 比如窗口，使用z-index的方式，不使用移动
+ * 别的表格拖拽，似乎更是根据模型在相应区域重新生成视图
+ */
 export class DOMVirtualParam implements VirtualChildParam<Node>{
 	constructor(
 		private pel:Node
@@ -76,7 +81,7 @@ export interface DOMNode{
 	type:string
 	init?:InitFun|InitFun[]
 	destroy?:DestoryFun|DestoryFun[]
-	id?:(o:any)=>void
+	id?:StringValue
 	cls?:StringValue
 	attr?: AttrMap
 	style?: StyleMap
@@ -90,9 +95,6 @@ export interface DOMNode{
 export type DOMNodeAll=DOMNode|string
 
 function buildParam(me:mve.LifeModel,el:Node,child:DOMNode){
-	if(child.id){
-		child.id(el)
-	}
 	if(child.action){
 		for(const k in child.action){
 			const v=child.action[k]
@@ -123,6 +125,11 @@ function buildParam(me:mve.LifeModel,el:Node,child:DOMNode){
 	if(child.cls){
 		parseUtil.bind(me,child.cls,function(v){
 			DOM.attr(el,"class",v)
+		})
+	}
+	if(child.id){
+		parseUtil.bind(me,child.id,function(v){
+			DOM.attr(el,"id",v)
 		})
 	}
 	if(child.text){
@@ -211,3 +218,14 @@ export const svg=buildElement<DOMNode,Node>(function(me,n,out){
 	out.push(ci)
 	return element
 })
+
+let idCount=0
+/**生成唯一ID*/
+export function idOf(name:string){
+	return name+(idCount++)
+}
+let clsCount=0
+/**生成唯一class */
+export function clsOf(name:string){
+	return name+(clsCount++)
+}

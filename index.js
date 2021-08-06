@@ -19,11 +19,16 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 exports.__esModule = true;
-exports.svg = exports.dom = exports.reWriteDestroy = exports.reWriteInit = exports.reWriteAction = exports.DOMVirtualParam = void 0;
+exports.clsOf = exports.idOf = exports.svg = exports.dom = exports.reWriteDestroy = exports.reWriteInit = exports.reWriteAction = exports.DOMVirtualParam = void 0;
 var childrenBuilder_1 = require("mve-core/childrenBuilder");
 var index_1 = require("mve-core/index");
 var util_1 = require("mve-core/util");
 var DOM = __importStar(require("./DOM"));
+/**
+ * 在DOM里，移动其实是少用的
+ * 比如窗口，使用z-index的方式，不使用移动
+ * 别的表格拖拽，似乎更是根据模型在相应区域重新生成视图
+ */
 var DOMVirtualParam = /** @class */ (function () {
     function DOMVirtualParam(pel) {
         this.pel = pel;
@@ -78,9 +83,6 @@ function reWriteDestroy(v, fun) {
 }
 exports.reWriteDestroy = reWriteDestroy;
 function buildParam(me, el, child) {
-    if (child.id) {
-        child.id(el);
-    }
     if (child.action) {
         for (var k in child.action) {
             var v = child.action[k];
@@ -113,6 +115,11 @@ function buildParam(me, el, child) {
     if (child.cls) {
         index_1.parseUtil.bind(me, child.cls, function (v) {
             DOM.attr(el, "class", v);
+        });
+    }
+    if (child.id) {
+        index_1.parseUtil.bind(me, child.id, function (v) {
+            DOM.attr(el, "id", v);
         });
     }
     if (child.text) {
@@ -207,3 +214,15 @@ exports.svg = index_1.buildElement(function (me, n, out) {
     out.push(ci);
     return element;
 });
+var idCount = 0;
+/**生成唯一ID*/
+function idOf(name) {
+    return name + (idCount++);
+}
+exports.idOf = idOf;
+var clsCount = 0;
+/**生成唯一class */
+function clsOf(name) {
+    return name + (clsCount++);
+}
+exports.clsOf = clsOf;

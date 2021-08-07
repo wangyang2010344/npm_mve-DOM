@@ -32,22 +32,22 @@ export type StyleMap={
 }&{
 	opacity?:mve.MTValue<number|string>
 }
-export type ActionHandler=(e) => void
+export type EventHandler=(e) => void
 /**动作树 */
-export type ActionItem=ActionHandler | {
+export type EventItem=EventHandler | {
 	capture?:boolean
-	handler:ActionHandler
-} | ActionItem[]
-export type ActionMap = { [key:string]: ActionItem }
-export function reWriteAction(n:ActionMap,act:string,fun:(vs:ActionItem[])=>ActionItem[]){
-	const v=n[act]
+	handler:EventHandler
+} | EventItem[]
+export type EventMap = { [key:string]: EventItem }
+export function reWriteEvent(n:EventMap,eventName:string,fun:(vs:EventItem[])=>EventItem[]){
+	const v=n[eventName]
 	if(isArray(v)){
-		n[act]=fun(v)
+		n[eventName]=fun(v)
 	}else
 	if(v){
-		n[act]=fun([v])
+		n[eventName]=fun([v])
 	}else{
-		n[act]=fun([])
+		n[eventName]=fun([])
 	}
 }
 
@@ -86,7 +86,7 @@ export interface DOMNode{
 	attr?: AttrMap
 	style?: StyleMap
 	prop?:PropMap
-	action?: ActionMap
+	event?: EventMap
 
 	value?: ItemValue
 	children?:EOChildren<Node>
@@ -95,15 +95,15 @@ export interface DOMNode{
 export type DOMNodeAll=DOMNode|string
 
 function buildParam(me:mve.LifeModel,el:Node,child:DOMNode){
-	if(child.action){
-		for(const k in child.action){
-			const v=child.action[k]
+	if(child.event){
+		for(const k in child.event){
+			const v=child.event[k]
 			if(isArray(v)){
 				for(const vv of v){
-					DOM.action(el,k,vv)
+					DOM.event(el,k,vv)
 				}
 			}else{
-				DOM.action(el,k,v)
+				DOM.event(el,k,v)
 			}
 		}
 	}

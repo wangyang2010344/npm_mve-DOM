@@ -19,7 +19,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 exports.__esModule = true;
-exports.clsOf = exports.idOf = exports.svg = exports.dom = exports.reWriteDestroy = exports.reWriteInit = exports.reWriteAction = exports.DOMVirtualParam = void 0;
+exports.clsOf = exports.idOf = exports.svg = exports.dom = exports.reWriteDestroy = exports.reWriteInit = exports.reWriteEvent = exports.DOMVirtualParam = void 0;
 var childrenBuilder_1 = require("mve-core/childrenBuilder");
 var index_1 = require("mve-core/index");
 var util_1 = require("mve-core/util");
@@ -45,19 +45,19 @@ var DOMVirtualParam = /** @class */ (function () {
     return DOMVirtualParam;
 }());
 exports.DOMVirtualParam = DOMVirtualParam;
-function reWriteAction(n, act, fun) {
-    var v = n[act];
+function reWriteEvent(n, eventName, fun) {
+    var v = n[eventName];
     if (util_1.isArray(v)) {
-        n[act] = fun(v);
+        n[eventName] = fun(v);
     }
     else if (v) {
-        n[act] = fun([v]);
+        n[eventName] = fun([v]);
     }
     else {
-        n[act] = fun([]);
+        n[eventName] = fun([]);
     }
 }
-exports.reWriteAction = reWriteAction;
+exports.reWriteEvent = reWriteEvent;
 function reWriteInit(v, fun) {
     if (util_1.isArray(v.init)) {
         v.init = fun(v.init);
@@ -83,17 +83,17 @@ function reWriteDestroy(v, fun) {
 }
 exports.reWriteDestroy = reWriteDestroy;
 function buildParam(me, el, child) {
-    if (child.action) {
-        for (var k in child.action) {
-            var v = child.action[k];
+    if (child.event) {
+        for (var k in child.event) {
+            var v = child.event[k];
             if (util_1.isArray(v)) {
                 for (var _i = 0, v_1 = v; _i < v_1.length; _i++) {
                     var vv = v_1[_i];
-                    DOM.action(el, k, vv);
+                    DOM.event(el, k, vv);
                 }
             }
             else {
-                DOM.action(el, k, v);
+                DOM.event(el, k, v);
             }
         }
     }

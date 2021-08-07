@@ -129,7 +129,7 @@ export function prop(el,key,value){
 		el[key]=value;
 	}             
 }
-export function action(el,key,value){
+export function event(el,key,value){
 	if(typeof(value)=="function"){
 		el.addEventListener(key,value)
 	}else

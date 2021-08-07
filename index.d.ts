@@ -26,16 +26,16 @@ export declare type StyleMap = {
 } & {
     opacity?: mve.MTValue<number | string>;
 };
-export declare type ActionHandler = (e: any) => void;
+export declare type EventHandler = (e: any) => void;
 /**动作树 */
-export declare type ActionItem = ActionHandler | {
+export declare type EventItem = EventHandler | {
     capture?: boolean;
-    handler: ActionHandler;
-} | ActionItem[];
-export declare type ActionMap = {
-    [key: string]: ActionItem;
+    handler: EventHandler;
+} | EventItem[];
+export declare type EventMap = {
+    [key: string]: EventItem;
 };
-export declare function reWriteAction(n: ActionMap, act: string, fun: (vs: ActionItem[]) => ActionItem[]): void;
+export declare function reWriteEvent(n: EventMap, eventName: string, fun: (vs: EventItem[]) => EventItem[]): void;
 declare type InitFun = (v: any, me: mve.LifeModel) => void;
 export declare function reWriteInit(v: DOMNode, fun: (vs: InitFun[]) => InitFun[]): void;
 declare type DestoryFun = (v: any) => void;
@@ -49,7 +49,7 @@ export interface DOMNode {
     attr?: AttrMap;
     style?: StyleMap;
     prop?: PropMap;
-    action?: ActionMap;
+    event?: EventMap;
     value?: ItemValue;
     children?: EOChildren<Node>;
     text?: ItemValue;

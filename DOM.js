@@ -1,6 +1,6 @@
 "use strict";
 exports.__esModule = true;
-exports.html = exports.value = exports.content = exports.text = exports.action = exports.prop = exports.style = exports.attr = exports.empty = exports.removeChild = exports.insertChildBefore = exports.replaceWith = exports.appendChild = exports.createTextNode = exports.createElementNS = exports.createElement = exports.keyCode = exports.revertAfterMove = exports.saveBeforeMove = void 0;
+exports.html = exports.value = exports.content = exports.text = exports.event = exports.prop = exports.style = exports.attr = exports.empty = exports.removeChild = exports.insertChildBefore = exports.replaceWith = exports.appendChild = exports.createTextNode = exports.createElementNS = exports.createElement = exports.keyCode = exports.revertAfterMove = exports.saveBeforeMove = void 0;
 function findScroll(el, store) {
     if (el.scrollTop != 0 || el.scrollLeft != 0) {
         var keep = {
@@ -139,7 +139,7 @@ function prop(el, key, value) {
     }
 }
 exports.prop = prop;
-function action(el, key, value) {
+function event(el, key, value) {
     if (typeof (value) == "function") {
         el.addEventListener(key, value);
     }
@@ -147,7 +147,7 @@ function action(el, key, value) {
         el.addEventListener(key, value.handler, value);
     }
 }
-exports.action = action;
+exports.event = event;
 function text(el, value) {
     if (notEqual(el.innerText, value)) {
         el.innerText = value;

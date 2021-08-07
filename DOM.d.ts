@@ -38,7 +38,7 @@ export declare function empty(el: any): void;
 export declare function attr(el: any, key: any, value: any): void;
 export declare function style(el: any, key: any, value: any): void;
 export declare function prop(el: any, key: any, value: any): void;
-export declare function action(el: any, key: any, value: any): void;
+export declare function event(el: any, key: any, value: any): void;
 export declare function text(el: any, value: any): void;
 export declare function content(el: any, value: any): void;
 export declare function value(el: any, value: any): void;

@@ -6,6 +6,11 @@ a simple dom birdge for mve
 ## Software Architecture
 pure TypeScript
 
+## git
+
+gitee : https://gitee.com/wy2010344/npm_mve-DOM.git
+
+github : https://github.com/wangyang2010344/npm_mve-DOM.git
 
 ## other
 

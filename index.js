@@ -19,7 +19,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 exports.__esModule = true;
-exports.clsOf = exports.idOf = exports.svg = exports.dom = exports.reWriteDestroy = exports.reWriteInit = exports.reWriteEvent = exports.DOMVirtualParam = void 0;
+exports.clsOf = exports.idOf = exports.svg = exports.dom = exports.reWriteDestroy = exports.reWriteInit = exports.reWriteEvent = exports.DOMVirtualParamReverse = exports.DOMVirtualParam = void 0;
 var childrenBuilder_1 = require("mve-core/childrenBuilder");
 var index_1 = require("mve-core/index");
 var util_1 = require("mve-core/util");
@@ -45,6 +45,22 @@ var DOMVirtualParam = /** @class */ (function () {
     return DOMVirtualParam;
 }());
 exports.DOMVirtualParam = DOMVirtualParam;
+var DOMVirtualParamReverse = /** @class */ (function () {
+    function DOMVirtualParamReverse(pel) {
+        this.pel = pel;
+    }
+    DOMVirtualParamReverse.prototype.remove = function (e) {
+        DOM.removeChild(this.pel, e);
+    };
+    DOMVirtualParamReverse.prototype.append = function (e, isMove) {
+        DOM.prefixChild(this.pel, e, isMove);
+    };
+    DOMVirtualParamReverse.prototype.insertBefore = function (e, old, isMove) {
+        DOM.insertChildAfter(this.pel, e, old, isMove);
+    };
+    return DOMVirtualParamReverse;
+}());
+exports.DOMVirtualParamReverse = DOMVirtualParamReverse;
 function reWriteEvent(n, eventName, fun) {
     var v = n[eventName];
     if (util_1.isArray(v)) {
@@ -190,7 +206,8 @@ exports.dom = index_1.buildElementOrginal(function (me, n, life) {
         if ('children' in n) {
             var children = n.children;
             if (children) {
-                out.push(childrenBuilder_1.childrenBuilder(me, new DOMVirtualParam(element), children));
+                var virtualParam = n.childrenReverse ? new DOMVirtualParamReverse(element) : new DOMVirtualParam(element);
+                out.push(childrenBuilder_1.childrenBuilder(me, virtualParam, children));
             }
         }
         buildParamAfter(me, element, n);
@@ -207,7 +224,8 @@ exports.svg = index_1.buildElement(function (me, n, out) {
     if ('children' in n) {
         var children = n.children;
         if (children) {
-            out.push(childrenBuilder_1.childrenBuilder(me, new DOMVirtualParam(element), children));
+            var virtualParam = n.childrenReverse ? new DOMVirtualParamReverse(element) : new DOMVirtualParam(element);
+            out.push(childrenBuilder_1.childrenBuilder(me, virtualParam, children));
         }
     }
     buildParamAfter(me, element, n);

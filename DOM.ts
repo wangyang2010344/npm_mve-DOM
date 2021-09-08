@@ -84,7 +84,42 @@ export function replaceWith(el,newEL){
 		pN.replaceChild(newEL,el);
 	}
 }
-
+function prefix(el:Node,child:Node) {
+	const first=el.firstChild
+	if(first){
+		el.insertBefore(child,first)
+	}else{
+		el.appendChild(child)
+	}
+}
+export function prefixChild(el,child,isMove?:boolean) {
+	if(isMove){
+		const o=keepScroll(child)
+		prefix(el,child);
+		reverScroll(o);
+	}else{
+		prefix(el,child);
+	}
+}
+function insertAfter(pel:Node,new_el:Node,old_el:Node) {
+	const next=old_el.nextSibling
+	if(next){
+		pel.insertBefore(new_el,next)
+	}else{
+		pel.appendChild(new_el)
+	}
+}
+export function insertChildAfter(pel,new_el,old_el,isMove?:boolean) {
+	if(isMove){
+		const oo=keepScroll(old_el)
+		const no=keepScroll(new_el);
+		insertAfter(pel,new_el,old_el);
+		reverScroll(oo)
+		reverScroll(no)
+	}else{
+		insertAfter(pel,new_el,old_el);
+	}
+}
 export function insertChildBefore(pel,new_el,old_el,isMove?:boolean){
 	if(isMove){
 		const oo=keepScroll(old_el)

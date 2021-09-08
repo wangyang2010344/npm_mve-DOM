@@ -9,9 +9,16 @@ import { VirtualChildParam } from "mve-core/virtualTreeChildren";
 export declare class DOMVirtualParam implements VirtualChildParam<Node> {
     private pel;
     constructor(pel: Node);
-    append(el: any, isMove: any): void;
-    remove(el: any): void;
-    insertBefore(el: any, oldEl: any, isMove: any): void;
+    append(el: Node, isMove: boolean): void;
+    remove(el: Node): void;
+    insertBefore(el: Node, oldEl: Node, isMove: boolean): void;
+}
+export declare class DOMVirtualParamReverse implements VirtualChildParam<Node> {
+    private pel;
+    constructor(pel: Node);
+    remove(e: Node): void;
+    append(e: Node, isMove?: boolean): void;
+    insertBefore(e: Node, old: Node, isMove?: boolean): void;
 }
 export declare type StringValue = mve.MTValue<string>;
 export declare type ItemValue = mve.MTValue<string | number | boolean>;
@@ -53,6 +60,7 @@ export interface DOMNode {
     value?: ItemValue;
     children?: EOChildren<Node>;
     text?: ItemValue;
+    childrenReverse?: boolean;
 }
 export declare type DOMNodeAll = DOMNode | string;
 export declare const dom: import("mve-core/index").ElementResult<DOMNodeAll, Node>;

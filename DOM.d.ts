@@ -32,6 +32,8 @@ export declare function createElementNS(type: any, NS: any): HTMLElement;
 export declare function createTextNode(json: any): Text;
 export declare function appendChild(el: any, child: any, isMove?: boolean): void;
 export declare function replaceWith(el: any, newEL: any): void;
+export declare function prefixChild(el: any, child: any, isMove?: boolean): void;
+export declare function insertChildAfter(pel: any, new_el: any, old_el: any, isMove?: boolean): void;
 export declare function insertChildBefore(pel: any, new_el: any, old_el: any, isMove?: boolean): void;
 export declare function removeChild(el: any, child: any): void;
 export declare function empty(el: any): void;

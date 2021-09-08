@@ -13,16 +13,31 @@ export class DOMVirtualParam implements VirtualChildParam<Node>{
 	constructor(
 		private pel:Node
 	){}
-	append(el,isMove){
+	append(el:Node,isMove: boolean){
 		DOM.appendChild(this.pel,el,isMove)
 	}
-	remove(el){
+	remove(el:Node){
 		DOM.removeChild(this.pel,el)
 	}
-	insertBefore(el,oldEl,isMove){
+	insertBefore(el:Node,oldEl:Node,isMove: boolean){
 		DOM.insertChildBefore(this.pel,el,oldEl,isMove)
 	}
 }
+export class DOMVirtualParamReverse implements VirtualChildParam<Node>{
+	constructor(
+		private pel:Node
+	){}
+	remove(e: Node): void {
+		DOM.removeChild(this.pel,e)
+	}
+	append(e: Node, isMove?: boolean): void {
+		DOM.prefixChild(this.pel,e,isMove)
+	}
+	insertBefore(e: Node, old: Node, isMove?: boolean): void {
+		DOM.insertChildAfter(this.pel,e,old,isMove)
+	}
+}
+
 export type StringValue=mve.MTValue<string>
 export type ItemValue=mve.MTValue<string|number|boolean>
 export type AttrMap={[key:string]:ItemValue}
@@ -32,7 +47,7 @@ export type StyleMap={
 }&{
 	opacity?:mve.MTValue<number|string>
 }
-export type EventHandler=(e) => void
+export type EventHandler=(e: any) => void
 /**动作树 */
 export type EventItem=EventHandler | {
 	capture?:boolean
@@ -54,7 +69,7 @@ export function reWriteEvent(n:EventMap,eventName:string,fun:(vs:EventItem[])=>E
 
 
 
-type InitFun=(v,me:mve.LifeModel)=>void
+type InitFun=(v: any,me:mve.LifeModel)=>void
 export function reWriteInit(v:DOMNode,fun:(vs:InitFun[])=>InitFun[]){
 	if(isArray(v.init)){
 		v.init=fun(v.init)
@@ -66,7 +81,7 @@ export function reWriteInit(v:DOMNode,fun:(vs:InitFun[])=>InitFun[]){
 	}
 }
 
-type DestoryFun=(v)=>void
+type DestoryFun=(v: any)=>void
 export function reWriteDestroy(v:DOMNode,fun:(vs:DestoryFun[])=>DestoryFun[]){
 	if(isArray(v.destroy)){
 		v.destroy=fun(v.destroy)
@@ -91,6 +106,7 @@ export interface DOMNode{
 	value?: ItemValue
 	children?:EOChildren<Node>
 	text?: ItemValue
+	childrenReverse?:boolean
 }
 export type DOMNodeAll=DOMNode|string
 
@@ -194,7 +210,8 @@ export const dom=buildElementOrginal<DOMNodeAll,Node>(function(me,n,life){
 		if('children' in n){
 			const children=n.children
 			if(children){
-				out.push(childrenBuilder(me,new DOMVirtualParam(element),children))
+				const virtualParam=n.childrenReverse?new DOMVirtualParamReverse(element):new DOMVirtualParam(element)
+				out.push(childrenBuilder(me,virtualParam,children))
 			}
 		}
 		buildParamAfter(me,element,n)
@@ -211,7 +228,8 @@ export const svg=buildElement<DOMNode,Node>(function(me,n,out){
 	if('children' in n){
 		const children=n.children
 		if(children){
-			out.push(childrenBuilder(me,new DOMVirtualParam(element),children))
+			const virtualParam=n.childrenReverse?new DOMVirtualParamReverse(element):new DOMVirtualParam(element)
+			out.push(childrenBuilder(me,virtualParam,children))
 		}
 	}
 	buildParamAfter(me,element,n)

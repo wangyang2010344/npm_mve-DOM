@@ -1,6 +1,6 @@
 "use strict";
 exports.__esModule = true;
-exports.html = exports.value = exports.content = exports.text = exports.event = exports.prop = exports.style = exports.attr = exports.empty = exports.removeChild = exports.insertChildBefore = exports.replaceWith = exports.appendChild = exports.createTextNode = exports.createElementNS = exports.createElement = exports.keyCode = exports.revertAfterMove = exports.saveBeforeMove = void 0;
+exports.html = exports.value = exports.content = exports.text = exports.event = exports.prop = exports.style = exports.attr = exports.empty = exports.removeChild = exports.insertChildBefore = exports.insertChildAfter = exports.prefixChild = exports.replaceWith = exports.appendChild = exports.createTextNode = exports.createElementNS = exports.createElement = exports.keyCode = exports.revertAfterMove = exports.saveBeforeMove = void 0;
 function findScroll(el, store) {
     if (el.scrollTop != 0 || el.scrollLeft != 0) {
         var keep = {
@@ -86,6 +86,48 @@ function replaceWith(el, newEL) {
     }
 }
 exports.replaceWith = replaceWith;
+function prefix(el, child) {
+    var first = el.firstChild;
+    if (first) {
+        el.insertBefore(child, first);
+    }
+    else {
+        el.appendChild(child);
+    }
+}
+function prefixChild(el, child, isMove) {
+    if (isMove) {
+        var o = keepScroll(child);
+        prefix(el, child);
+        reverScroll(o);
+    }
+    else {
+        prefix(el, child);
+    }
+}
+exports.prefixChild = prefixChild;
+function insertAfter(pel, new_el, old_el) {
+    var next = old_el.nextSibling;
+    if (next) {
+        pel.insertBefore(new_el, next);
+    }
+    else {
+        pel.appendChild(new_el);
+    }
+}
+function insertChildAfter(pel, new_el, old_el, isMove) {
+    if (isMove) {
+        var oo = keepScroll(old_el);
+        var no = keepScroll(new_el);
+        insertAfter(pel, new_el, old_el);
+        reverScroll(oo);
+        reverScroll(no);
+    }
+    else {
+        insertAfter(pel, new_el, old_el);
+    }
+}
+exports.insertChildAfter = insertChildAfter;
 function insertChildBefore(pel, new_el, old_el, isMove) {
     if (isMove) {
         var oo = keepScroll(old_el);

@@ -29,9 +29,7 @@ export declare type PropMap = {
     [key: string]: mve.MTValue<string | number | boolean>;
 };
 export declare type StyleMap = {
-    [key: string]: mve.MTValue<string>;
-} & {
-    opacity?: mve.MTValue<number | string>;
+    [key: string]: mve.MTValue<string | number>;
 };
 export declare type EventHandler = (e: any) => void;
 /**动作树 */

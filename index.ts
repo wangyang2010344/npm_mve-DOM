@@ -42,11 +42,7 @@ export type StringValue=mve.MTValue<string>
 export type ItemValue=mve.MTValue<string|number|boolean>
 export type AttrMap={[key:string]:ItemValue}
 export type PropMap={ [key: string]:mve.MTValue<string|number|boolean>}
-export type StyleMap={
-	[key:string]:mve.MTValue<string>
-}&{
-	opacity?:mve.MTValue<number|string>
-}
+export type StyleMap={[key:string]:mve.MTValue<string|number>}
 export type EventHandler=(e: any) => void
 /**动作树 */
 export type EventItem=EventHandler | {

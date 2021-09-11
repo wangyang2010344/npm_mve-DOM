@@ -1,6 +1,6 @@
 {
   "name": "mve-dom",
-  "version": "1.0.8",
+  "version": "1.0.10",
   "description": "a simple dom birdge for mve",
   "main": "index.js",
   "scripts": {
@@ -20,6 +20,6 @@
   "author": "wy2010344",
   "license": "MIT",
   "dependencies": {
-    "mve-core": "^1.0.4"
+    "mve-core": "^1.0.6"
   }
 }

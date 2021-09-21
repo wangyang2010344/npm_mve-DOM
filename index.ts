@@ -196,6 +196,7 @@ function buildParamAfter(me:mve.LifeModel,el:Node,child:DOMNode){
 	}
 }
 export const dom=buildElementOrginal<DOMNodeAll,Node>(function(me,n,life){
+	n=n||""
 	if(typeof(n)=='string'){
 		const txt=DOM.createTextNode(n)
 		if(life){

@@ -13,14 +13,25 @@ export declare const keyCode: {
     BACKSPACE: (e: KeyboardEvent) => boolean;
     ENTER: (e: KeyboardEvent) => boolean;
     TAB: (e: KeyboardEvent) => boolean;
+    ESCAPE: (e: KeyboardEvent) => boolean;
+    CAPSLOCK: (e: KeyboardEvent) => boolean;
     ARROWLEFT: (e: KeyboardEvent) => boolean;
     ARROWUP: (e: KeyboardEvent) => boolean;
     ARROWRIGHT: (e: KeyboardEvent) => boolean;
     ARROWDOWN: (e: KeyboardEvent) => boolean;
     CONTROL: (e: KeyboardEvent) => boolean;
+    /**shift键 */
+    SHIFT: (e: KeyboardEvent) => boolean;
+    SHIFTLEFT: (e: KeyboardEvent) => boolean;
+    SHIFTRIGHT: (e: KeyboardEvent) => boolean;
     /**windows键 */
     META: (e: KeyboardEvent) => boolean;
+    METALEFT: (e: KeyboardEvent) => boolean;
+    METARIGHT: (e: KeyboardEvent) => boolean;
+    /**ALT键 */
     ALT: (e: KeyboardEvent) => boolean;
+    ALTLEFT: (e: KeyboardEvent) => boolean;
+    ALTRIGHT: (e: KeyboardEvent) => boolean;
     A: (e: KeyboardEvent) => boolean;
     Z: (e: KeyboardEvent) => boolean;
     V: (e: KeyboardEvent) => boolean;

@@ -20,6 +20,6 @@
   "author": "wy2010344",
   "license": "MIT",
   "dependencies": {
-    "mve-core": "^1.0.4"
+    "mve-core": "^1.0.7"
   }
 }

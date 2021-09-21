@@ -190,6 +190,7 @@ function buildParamAfter(me, el, child) {
     }
 }
 exports.dom = index_1.buildElementOrginal(function (me, n, life) {
+    n = n || "";
     if (typeof (n) == 'string') {
         var txt = DOM.createTextNode(n);
         if (life) {

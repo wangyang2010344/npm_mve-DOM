@@ -29,10 +29,17 @@ function reverScroll(store) {
 function notEqual(a, b) {
     return a != b || (typeof (b) != "string" && a != b + "");
 }
-function isKey(v, key) {
-    return function (e) {
-        return e.keyCode == v;
-    };
+function isKey(v, key, code) {
+    if (code) {
+        return function (e) {
+            return (e.keyCode == v || e.key == key) && e.code == code;
+        };
+    }
+    else {
+        return function (e) {
+            return e.keyCode == v || e.key == key;
+        };
+    }
 }
 /**保存如滚动之类，在从DOM上剪切移动之前 */
 exports.saveBeforeMove = keepScroll;
@@ -42,14 +49,25 @@ exports.keyCode = {
     BACKSPACE: isKey(8, "Backspace"),
     ENTER: isKey(13, "Enter"),
     TAB: isKey(9, "Tab"),
+    ESCAPE: isKey(27, "Escape"),
+    CAPSLOCK: isKey(20, 'CapsLock'),
     ARROWLEFT: isKey(37, "ArrowLeft"),
     ARROWUP: isKey(38, "ArrowUp"),
     ARROWRIGHT: isKey(39, "ArrowRight"),
     ARROWDOWN: isKey(40, "ArrowDown"),
     CONTROL: isKey(17, "Control"),
+    /**shift键 */
+    SHIFT: isKey(16, 'Shift'),
+    SHIFTLEFT: isKey(16, 'Shift', 'ShiftLeft'),
+    SHIFTRIGHT: isKey(16, 'Shift', 'ShiftRight'),
     /**windows键 */
     META: isKey(91, "Meta"),
-    ALT: isKey(18, "ALT"),
+    METALEFT: isKey(91, "Meta", "MetaLeft"),
+    METARIGHT: isKey(91, "Meta", "MetaRight"),
+    /**ALT键 */
+    ALT: isKey(18, "Alt"),
+    ALTLEFT: isKey(18, "Alt", "AltLeft"),
+    ALTRIGHT: isKey(18, "Alt", "AltRight"),
     A: isKey(65, 'a'),
     Z: isKey(90, "z"),
     V: isKey(86, "v"),

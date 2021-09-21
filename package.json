@@ -1,6 +1,6 @@
 {
   "name": "mve-dom",
-  "version": "1.0.8",
+  "version": "1.0.10",
   "description": "a simple dom birdge for mve",
   "main": "index.js",
   "scripts": {
